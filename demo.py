@@ -1,4 +1,6 @@
 import csv
+import pandas as pd
+
 
 filename = "mails.csv"
 newUser = [6118038532665114624,"woosal@protonmail.com"]
@@ -63,6 +65,7 @@ class implementCSV:
                 if line[1] == mail:
                     return str(line[0])
 
+    #
     def getMailById(self, filename, id):
         with open(filename, "r") as csvfile:
             csvreader = csv.reader(csvfile)
@@ -74,7 +77,11 @@ class implementCSV:
                     return str(line[1])
 
 
+    # Update the user mail bu +updatemail newMail
+    def updateMail(self, filename, id, newMail):
+        df = pd.read_csv(filename)
+        df.loc[str(id), 'email'] = newMail
+        df.to_csv(filename)
 
 csvObj = implementCSV(filename)
-
-print(csvObj.getMailById(filename, "859235792352957922"))
+csvObj.updateMail(filename, 618038532665114624, "woosal@protonmail.com")
